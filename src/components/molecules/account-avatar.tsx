@@ -1,9 +1,10 @@
 "use client";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 const NAVIGATION_ITEMS = [
     "my-blogs",
@@ -55,6 +56,9 @@ export const AccountAvatar = ({
             <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer hover:shadow-md">
                     <AvatarImage src={src} alt={alt} />
+                    <AvatarFallback>
+                        <Skeleton className="w-10 h-10 rounded-full" />
+                    </AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
 
