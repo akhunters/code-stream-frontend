@@ -2,6 +2,7 @@ import { getAllPosts } from "@/actions/posts.action";
 import { auth } from "@/auth";
 import { BlogPost } from "@/components/molecules/blog-post";
 import { redirect } from "next/navigation";
+import EmptyBlogs from "./empty";
 
 const DashboardPage = async () => {
     const session = await auth();
@@ -14,6 +15,9 @@ const DashboardPage = async () => {
         authorId: session.user.userId,
     });
 
+    if (posts.length === 0) {
+        return <EmptyBlogs />;
+    }
 
     return (
         <div className="flex flex-col min-h-screen px-12 py-20 gap-x-8">

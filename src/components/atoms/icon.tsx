@@ -1,8 +1,8 @@
 
-import { LucideProps, SquarePenIcon, Trash2, FilePenLine } from "lucide-react";
+import { LucideProps, SquarePenIcon, Trash2, FilePenLine, Plus } from "lucide-react";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 
-const ICON_KEYS = ["square-pen", "trash-2", "file-pen-line"] as const;
+const ICON_KEYS = ["square-pen", "trash-2", "file-pen-line", "plus"] as const;
 
 export type IconType = typeof ICON_KEYS[number];
 
@@ -10,6 +10,7 @@ const IconMap = new Map<IconType, ForwardRefExoticComponent<Omit<LucideProps, "r
     ["square-pen", SquarePenIcon],
     ["trash-2", Trash2],
     ["file-pen-line", FilePenLine],
+    ["plus", Plus],
 ]);
 
 export interface IconProps extends Omit<LucideProps, "ref"> {
