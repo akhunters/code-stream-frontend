@@ -3,8 +3,10 @@ import { redirect } from "next/navigation";
 import { AccountAvatar } from "../molecules/account-avatar";
 import { IconButton } from "../atoms/icon-link";
 import { auth } from "@/auth";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
-export const NavBar = async () => {
+const AuthenticatedLinks = async () => {
     const session = await auth();
 
     const handleSignInClick = async () => {
@@ -12,20 +14,20 @@ export const NavBar = async () => {
         redirect("/signin");
     }
 
-    const getAuthenticatedLinks = () => {
-        if (!session?.user) {
-            return (
-                <Button onClick={handleSignInClick}>
-                    Sign In
-                </Button>
-            );
-        }
-
+    if (!session?.user) {
         return (
-            <AccountAvatar src={session.user?.image ?? ""} alt={session.user?.name ?? ""} />
+            <Button onClick={handleSignInClick}>
+                Sign In
+            </Button>
         );
     }
 
+    return (
+        <AccountAvatar src={session.user?.image ?? ""} alt={session.user?.name ?? ""} />
+    );
+}
+
+export const NavBar = async () => {
     return <div className="w-screen py-3 px-6 md:px-12 border-b-[1px] border-gray-100 fixed top-0 bg-white z-10">
         <div className="flex justify-between items-center">
             <div className="flex items-center">
@@ -33,7 +35,9 @@ export const NavBar = async () => {
             </div>
             <div className="flex items-center gap-x-5">
                 <IconButton href="/dashboard/write" icon="square-pen" label="Write" className="text-primary w-5 h-5" />
-                {getAuthenticatedLinks()}
+                <Suspense fallback={<Skeleton className="w-10 h-10 rounded-full" />}>
+                    <AuthenticatedLinks />
+                </Suspense>
             </div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Source_Serif_4 } from "next/font/google";
-import "../globals.css";
+import "./globals.css";
 import AuthProvider from "@/providers/auth-provider";
 import { NavBar } from "@/components/organisms/nav-bar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Suspense } from "react";
+
 
 const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",
@@ -31,9 +31,7 @@ export default function RootLayout({
           <TooltipProvider delayDuration={200}>
             <div className="flex flex-col min-h-screen max-w-screen">
               <NavBar />
-              <Suspense fallback={<div>Loading...</div>}>
-                {children}
-              </Suspense>
+              {children}
             </div>
           </TooltipProvider>
         </body>
