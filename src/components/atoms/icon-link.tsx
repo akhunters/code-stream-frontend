@@ -1,7 +1,9 @@
+"use client";
+
 import { Icon, IconType } from "./icon";
 
 interface IconButtonProps {
-    href: string;
+    href?: string;
     icon: IconType;
     label?: string;
     className?: string;

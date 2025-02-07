@@ -102,7 +102,7 @@ const RichTextEditor = ({
             <EditorContent
                 editor={editor}
                 style={{ minHeight: '200px' }}
-                className="prose flex max-w-none border p-2 min-h-[200px] prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-gray-800 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-gray-700 prose-p:text-lg prose-p:text-gray-600 prose-pre:bg-white prose-pre:text-white prose-pre:p-0 prose-pre:m-0 prose-pre:rounded-md prose-code:bg-gray-700 prose-code:text-orange-500 prose-code:px-2 prose-code:py-1 prose-code:rounded-md"
+                className="prose border p-2 min-h-[200px] prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-gray-800 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-gray-700 prose-p:text-lg prose-p:text-gray-600 prose-pre:bg-gray-100 prose-pre:text-primary prose-pre:text-sm prose-pre:my-2 prose-pre:p-4 prose-pre:m-0 prose-pre:rounded-md"
             />
             <p className="text-right mt-2">Word Count: {editor?.storage.characterCount.words()}</p>
         </div>

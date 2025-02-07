@@ -77,3 +77,8 @@ body {
     @apply bg-gray-100 text-primary text-sm overflow-scroll rounded-md p-4 w-full my-4;
   }
 }
+
+
+.prose {
+  max-width: max-content;
+}

@@ -18,6 +18,12 @@ export const BlogPost = ({
     user,
     editable = false,
 }: BlogPostProps) => {
+
+    const handleDelete = async () => {
+        "use server";
+        console.log("Delete post");
+    };
+
     return (
         <div className="flex flex-col gap-y-2 justify-between p-4 border border-gray-200 rounded-sm hover:border-gray-300">
             <a href={`/blog/${id}`} className="flex flex-col gap-y-4 cursor-pointer ">
@@ -46,7 +52,7 @@ export const BlogPost = ({
                     <Tooltip>
                         <TooltipTrigger>
                             <IconButton
-                                href="/blog/[id]/edit"
+                                href={`/dashboard/write?id=${id}&edit=true`}
                                 icon="file-pen-line"
                             />
                         </TooltipTrigger>
@@ -55,7 +61,7 @@ export const BlogPost = ({
                     <Tooltip>
                         <TooltipTrigger>
                             <IconButton
-                                href="/blog/[id]/edit"
+                                onClick={handleDelete}
                                 icon="trash-2"
                             />
                         </TooltipTrigger>

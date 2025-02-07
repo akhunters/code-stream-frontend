@@ -5,14 +5,16 @@ import { Separator } from "@/components/ui/separator";
 import dayjs from "dayjs";
 
 interface BlogPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>
 }
 
 const BlogPage = async ({
-    params: { id },
+    params
 }: BlogPageProps) => {
+    const { id } = await params;
+
     const post = await getPostById(id);
 
     if (!post) {
@@ -27,7 +29,7 @@ const BlogPage = async ({
                 <PostBody body={post.body} />
                 <Separator />
                 <div className="flex gap-x-4 w-full items-center">
-                    <Avatar style={{width: 60, height: 60}}>
+                    <Avatar style={{ width: 60, height: 60 }}>
                         <AvatarImage src={post.user.thumbnail} />
                         <AvatarFallback>
                             {post.user.name[0]}{post.user.name[1]}
