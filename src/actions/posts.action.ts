@@ -42,7 +42,7 @@ export async function getPostById(id: string): Promise<Post> {
     return data;
 }
 
-export async function createPost(post: Pick<Post, 'title' | 'body'>): Promise<Post> {
+export async function createPost(post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
     const session = await auth();
 
     if (!session) {
