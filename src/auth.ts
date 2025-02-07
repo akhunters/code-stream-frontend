@@ -1,9 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import 'next-auth/jwt';
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import { backendLogin } from "./actions/auth-backend.action";
 import { AuthProvider } from "./types/auth.type";
+import { AdapterUser } from "next-auth/adapters";
 
 const {
     auth,
@@ -31,11 +32,13 @@ const {
 
                 token.accessToken = backendAuthenticateResponse.accessToken;
                 token.accessTokenExpires = backendAuthenticateResponse.expiresAt;
+                token.userId = backendAuthenticateResponse.user.id;
             }
             return token;
         },
         async session({ session, token }) {
             session.accessToken = token.accessToken;
+            session.user.userId = token.userId;
             return session;
         },
     },
@@ -49,6 +52,7 @@ export { auth, handlers, signIn, signOut };
 declare module "next-auth" {
     interface Session {
         accessToken: string;
+        user: AdapterUser & User & { userId: number };
     }
 }
 
@@ -58,5 +62,6 @@ declare module 'next-auth/jwt' {
         accessToken: string;
         accessTokenExpires: number;
         idToken: string;
+        userId: number;
     }
 }

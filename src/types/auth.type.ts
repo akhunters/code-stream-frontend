@@ -1,3 +1,5 @@
+import { User } from "./user.type";
+
 const AUTH_PROVIDERS = [
     'google',
     'facebook'
@@ -13,4 +15,5 @@ export interface LoginPayload {
 export interface LoginResponse {
     accessToken: string;
     expiresAt: number;
+    user: User;
 }

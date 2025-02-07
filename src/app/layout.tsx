@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/providers/auth-provider";
+import { NavBar } from "@/components/organisms/nav-bar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSerif4 = Source_Serif_4({
+  variable: "--font-source-serif-4",
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
 
@@ -27,9 +24,12 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${sourceSerif4.variable} antialiased`}
         >
-          {children}
+          <div className="flex flex-col min-h-screen">
+            <NavBar />
+            {children}
+          </div>
         </body>
       </AuthProvider>
     </html>
