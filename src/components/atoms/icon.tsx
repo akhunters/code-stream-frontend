@@ -1,13 +1,15 @@
 
-import { LucideProps, SquarePenIcon } from "lucide-react";
+import { LucideProps, SquarePenIcon, Trash2, FilePenLine } from "lucide-react";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 
-const ICON_KEYS = ["square-pen"] as const;
+const ICON_KEYS = ["square-pen", "trash-2", "file-pen-line"] as const;
 
 export type IconType = typeof ICON_KEYS[number];
 
 const IconMap = new Map<IconType, ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>>([
     ["square-pen", SquarePenIcon],
+    ["trash-2", Trash2],
+    ["file-pen-line", FilePenLine],
 ]);
 
 export interface IconProps extends Omit<LucideProps, "ref"> {

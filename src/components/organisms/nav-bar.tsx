@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { AccountAvatar } from "../molecules/account-avatar";
-import { IconLink } from "../atoms/icon-link";
+import { IconButton } from "../atoms/icon-link";
 import { auth } from "@/auth";
 
 export const NavBar = async () => {
@@ -32,7 +32,7 @@ export const NavBar = async () => {
                 <a href="/" className="text-2xl font-bold text-primary">Code Stream</a>
             </div>
             <div className="flex items-center gap-x-5">
-                <IconLink href="/dashboard" icon="square-pen" label="Write" className="text-primary w-5 h-5" />
+                <IconButton href="/dashboard" icon="square-pen" label="Write" className="text-primary w-5 h-5" />
                 {getAuthenticatedLinks()}
             </div>
         </div>

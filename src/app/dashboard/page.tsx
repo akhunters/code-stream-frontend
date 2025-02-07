@@ -15,15 +15,19 @@ const DashboardPage = async () => {
         authorId: session.user.userId,
     });
 
+    const updatedPosts = new Array(5).fill(posts[0]);
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-primary">Dashboard</h1>
-            {posts.map((post, idx) => (
-                <div key={post.id}>
-                    <BlogPost key={post.id} {...post} thumbnail="/images/dummy-thumbnail.png" />
-                    {idx !== posts.length - 1 && <Separator />}
-                </div>
-            ))}
+        <div className="flex flex-col min-h-screen px-12 py-20">
+            <h3 className="text-4xl font-black text-gray-800 text-center">My Blogs</h3>
+            <div className="w-full mt-8 grid grid-cols-4 gap-6">
+                {updatedPosts.map((post, idx) => (
+                    <div key={post.id} >
+                        <BlogPost key={post.id} {...post} thumbnail="/images/dummy-thumbnail.png" editable />
+                        {idx !== posts.length - 1 && <Separator />}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
