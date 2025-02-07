@@ -3,6 +3,7 @@ import { Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/providers/auth-provider";
 import { NavBar } from "@/components/organisms/nav-bar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",
@@ -26,10 +27,12 @@ export default function RootLayout({
         <body
           className={`${sourceSerif4.variable} antialiased`}
         >
-          <div className="flex flex-col min-h-screen">
-            <NavBar />
-            {children}
-          </div>
+          <TooltipProvider delayDuration={200}>
+            <div className="flex flex-col min-h-screen">
+              <NavBar />
+              {children}
+            </div>
+          </TooltipProvider>
         </body>
       </AuthProvider>
     </html>
