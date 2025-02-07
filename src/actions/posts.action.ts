@@ -6,6 +6,7 @@ import { Post } from "@/types/post.type";
 const GET_ALL_POSTS_ENDPOINT = `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts`;
 const GET_POST_BY_ID_ENDPOINT = (id: string) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
 const CREATE_POST_ENDPOINT = `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts`;
+const UPDATE_POST_ENDPOINT = (id: number) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
 
 const createQueryParams = <T extends Record<string, string | number>>(queries: T): URLSearchParams => {
     const queryParams = new URLSearchParams();
@@ -60,6 +61,28 @@ export async function createPost(post: Pick<Post, 'title' | 'body' | 'descriptio
         body: JSON.stringify(post),
     });
 
+
+    const data = await response.json();
+    return data;
+}
+
+export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
+    const session = await auth();
+
+    if (!session) {
+        throw new Error("Unauthorized");
+    }
+
+    const accessToken = session.accessToken;
+
+    const response = await fetch(UPDATE_POST_ENDPOINT(id), {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(post),
+    });
 
     const data = await response.json();
     return data;

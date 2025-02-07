@@ -1,4 +1,4 @@
-import { createPost, getPostById } from "@/actions/posts.action";
+import { createPost, getPostById, updatePost } from "@/actions/posts.action";
 import { auth } from "@/auth";
 import { BlogEditor } from "@/components/organisms/blog-editor";
 import { Post } from "@/types/post.type";
@@ -35,8 +35,8 @@ const WritePage = async ({
 
     const handleSubmit = async (payload: Pick<Post, 'body' | 'title' | 'description'>) => {
         "use server";
-        if (editMode) {
-            // Update post
+        if (editMode && post) {
+            await updatePost(post.id, payload);
         } else {
             await createPost(payload);
         }

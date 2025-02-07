@@ -6,6 +6,8 @@ import { backendLogin } from "./actions/auth-backend.action";
 import { AuthProvider } from "./types/auth.type";
 import { AdapterUser } from "next-auth/adapters";
 
+const MAX_AGE = 60 * 60;
+
 const {
     auth,
     handlers,
@@ -22,6 +24,12 @@ const {
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
         }),
     ],
+    jwt: {
+        maxAge: MAX_AGE,
+    },
+    session: {
+        maxAge: MAX_AGE,
+    },
     callbacks: {
         async jwt({ token, account }) {
             if (account?.access_token && account?.provider) {
