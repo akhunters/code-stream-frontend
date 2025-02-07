@@ -26,7 +26,9 @@ export const AccountAvatar = async ({
 }: AccountAvatarProps) => {
     const handleLogout = async () => {
         "use server";
-        signOut();
+        signOut({
+            redirectTo: "/signin",
+        });
     }
 
     const navigateToMyBlogs = async () => {

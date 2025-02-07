@@ -29,7 +29,7 @@ export const NavBar = async () => {
     return <div className="w-screen py-3 px-12 border-b-[1px] border-gray-100 fixed top-0 bg-white z-10">
         <div className="flex justify-between items-center">
             <div className="flex items-center">
-                <div className="text-2xl font-bold text-primary">Code Stream</div>
+                <a href="/" className="text-2xl font-bold text-primary">Code Stream</a>
             </div>
             <div className="flex items-center gap-x-5">
                 <IconLink href="/dashboard" icon="square-pen" label="Write" className="text-primary w-5 h-5" />

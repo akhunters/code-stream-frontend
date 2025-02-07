@@ -1,5 +1,5 @@
 import { getPostById } from "@/actions/posts.action";
-import MDXRenderer from "@/components/molecules/mdx-renderer";
+import { PostBody } from "@/components/atoms/post-body";
 
 interface BlogPageProps {
     params: {
@@ -17,10 +17,10 @@ const BlogPage = async ({
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-y-10">
+        <div className="flex flex-col items-center justify-center min-h-screen gap-y-10 py-28">
             <h1 className="text-4xl font-bold">{post.title}</h1>
             <img src={'/images/dummy-thumbnail.png'} alt="Thumbnail" className="w-[500px] h-[300px] rounded-lg" />
-            <MDXRenderer mdxContent={post.body} />
+            <PostBody body={post.body} />
         </div>
     );
 }
