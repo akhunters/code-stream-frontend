@@ -32,7 +32,7 @@ export const NavBar = async () => {
                 <a href="/" className="text-2xl font-bold text-primary">Code Stream</a>
             </div>
             <div className="flex items-center gap-x-5">
-                <IconButton href="/dashboard" icon="square-pen" label="Write" className="text-primary w-5 h-5" />
+                <IconButton href="/dashboard/write" icon="square-pen" label="Write" className="text-primary w-5 h-5" />
                 {getAuthenticatedLinks()}
             </div>
         </div>
