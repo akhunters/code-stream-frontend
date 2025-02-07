@@ -11,7 +11,7 @@ export const PostBody = ({
     return (
         <div
             dangerouslySetInnerHTML={{ __html: sanitizedBody }}
-            className="px-6 sm:px-52  text-lg  text-gray-800"
+            className="w-full text-lg text-gray-800"
         />
     );
 }

@@ -73,4 +73,7 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  pre {
+    @apply bg-gray-100 text-primary text-sm overflow-scroll rounded-md p-4 w-full my-4;
+  }
 }
