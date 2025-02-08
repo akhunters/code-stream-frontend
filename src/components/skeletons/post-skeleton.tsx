@@ -8,7 +8,7 @@ export const PostSkeleton = () => {
             <div className="flex justify-between items-start gap-x-8 ">
                 <div className="flex flex-col gap-y-8 w-full">
                     <Skeleton style={{ width: "100%", height: "70px" }} />
-                    <Skeleton style={{ width: "100%", height: "70px" }} />
+                    <Skeleton style={{ width: "100%", height: "40px" }} />
                 </div>
             </div>
             <div className="flex items-center justify-between gap-x-2">

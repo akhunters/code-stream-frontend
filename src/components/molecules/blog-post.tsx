@@ -21,17 +21,17 @@ export const BlogPost = ({
 
     const handleDelete = async () => {
         "use server";
-        console.log("Delete post");
+        // @todo Implement delete post functionality
     };
 
     return (
-        <div className="flex flex-col gap-y-2 justify-between p-4 border border-gray-200 rounded-sm hover:border-gray-300">
+        <div className="flex flex-col h-full gap-y-2 justify-between p-4 border border-gray-200 rounded-sm hover:border-gray-300">
             <a href={`/blog/${id}`} className="flex flex-col gap-y-4 cursor-pointer ">
                 <img src={thumbnail} alt={title} className="w-full h-[200px] object-cover rounded-sm" />
                 <div className="flex justify-between items-start gap-x-8 ">
                     <div className="flex flex-col gap-y-4">
                         <h1 className="text-xl font-bold">{title}</h1>
-                        <p className="text-gray-700 text-md">{description.slice(0, 100)}...</p>
+                        <p className="text-gray-700 text-sm">{description.slice(0, 60)}...</p>
                     </div>
                 </div>
             </a>

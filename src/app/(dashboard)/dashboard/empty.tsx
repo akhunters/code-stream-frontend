@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function EmptyBlogs() {
     return (
-        <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6">
+        <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6 min-h-screen">
             <div className="w-64 h-64 flex items-center justify-center rounded-lg">
                 <span className="text-8xl">👨‍💻📄</span>
             </div>
