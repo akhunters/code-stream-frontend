@@ -20,6 +20,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { createLowlight } from 'lowlight';
 import { Bold, Italic, Underline as UnderlineIcon, Strikethrough, Heading1, Heading2, List, Quote, Code } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '../ui/skeleton';
 
 interface RichTextEditorProps {
     content: string;
@@ -70,7 +71,7 @@ const RichTextEditor = ({
     });
 
     if (!editor?.isInitialized) {
-        return null;
+        return <Skeleton className='h-[340px] w-full' />;
     }
 
     return (

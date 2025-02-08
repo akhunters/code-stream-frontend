@@ -39,7 +39,7 @@ export const BlogEditor = ({
                     value={description}
                     onChange={(e) => setDescription(e.target.value.slice(0, 255))}
                     placeholder="Enter your blog description..."
-                    rows={4}
+                    rows={3}
                     maxLength={255}
                     className="w-full text-lg text-gray-800 p-2 border-b mb-4 focus:outline-none focus:ring-0"
                 />
