@@ -1,12 +1,19 @@
 "use client";
 import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
 
 export const PostBody = ({
     body
 }: {
     body: string;
 }) => {
-    const sanitizedBody = DOMPurify.sanitize(body);
+    const [sanitizedBody, setSanitizedBody] = useState<string>('');
+
+    useEffect(() => {
+        if (DOMPurify?.sanitize) {
+            setSanitizedBody(DOMPurify.sanitize(body));
+        }
+    }, [body]);
 
     return (
         <div
