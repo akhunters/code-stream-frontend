@@ -5,7 +5,10 @@ import dayjs from "dayjs";
 export async function middleware(req: NextRequest) {
     const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
-    const isTokenValidForNext5Mins = token && dayjs.unix(token.accessTokenExpires).diff(dayjs(), "minute") > 5;
+    if (!token) {
+        const signinUrl = new URL("/signin", req.nextUrl.origin);
+        return NextResponse.rewrite(signinUrl.toString());
+    }
 
     /**
      * @todo Implement a refresh token strategy in `auth.ts` to get a new access token
@@ -18,10 +21,10 @@ export async function middleware(req: NextRequest) {
      * 1. Call /api/auth/login endpoint with the new access token
      * 2. Update the session cookie with the token received from the above endpoint
      */
-
-    if (!token || !isTokenValidForNext5Mins) {
-        const signinUrl = new URL("/signin", req.nextUrl.origin);
-        return NextResponse.rewrite(signinUrl.toString());
+    const isTokenValidForNext5Mins = token && dayjs.unix(token.accessTokenExpires).diff(dayjs(), "minute") > 5;
+    if (!isTokenValidForNext5Mins) {
+        const signoutUrl = new URL("/signout", req.nextUrl.origin);
+        return NextResponse.rewrite(signoutUrl.toString());
     }
 
     return NextResponse.next();
