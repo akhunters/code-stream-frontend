@@ -3,7 +3,6 @@
 import { auth } from "@/auth";
 import { Post } from "@/types/post.type";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import axios from "axios";
 import { getAxiosErrorMessage } from "@/lib/utils";
 import { CustomAxiosError } from "@/types/axios.type";
@@ -77,9 +76,7 @@ export async function createPost(post: Pick<Post, 'title' | 'body' | 'descriptio
         });
 
         const data = response.data;
-
-        // Redirect user to the newly created post
-        redirect(`/blog/${data.id}`);
+        return data;
     } catch (e) {
         const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
         throw new Error(errorMessage);
@@ -87,7 +84,7 @@ export async function createPost(post: Pick<Post, 'title' | 'body' | 'descriptio
 
 }
 
-export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<void> {
+export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
     const session = await auth();
 
     if (!session) {
@@ -105,9 +102,7 @@ export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' |
         });
 
         const data = response.data;
-
-        // Redirect user to the updated post
-        redirect(`/blog/${data.id}`);
+        return data;
     } catch (e) {
         const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
         throw new Error(errorMessage);

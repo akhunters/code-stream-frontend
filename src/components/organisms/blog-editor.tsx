@@ -6,6 +6,7 @@ import { Post } from "@/types/post.type";
 import { toast } from "sonner";
 import LoadingButton from "../atoms/loading-button";
 import { Spinner } from "../atoms/spinner";
+import { useRouter } from "next/navigation";
 
 export const BlogEditor = ({
     editMode,
@@ -14,16 +15,21 @@ export const BlogEditor = ({
 }: {
     editMode?: boolean;
     post?: Post | null;
-    onSubmit: (data: Pick<Post, 'title' | 'body' | 'description'>) => Promise<void>;
+    onSubmit: (data: Pick<Post, 'title' | 'body' | 'description'>) => Promise<Post>;
 }) => {
+    const router = useRouter();
+
     const [title, setTitle] = useState(post?.title || '');
     const [body, setBody] = useState(post?.body || '');
     const [description, setDescription] = useState(post?.description || '');
 
     const handleSubmit = async () => {
         try {
-            await onSubmit({ title, body, description });
+            console.log("title -submit called", title);
+            const postData = await onSubmit({ title, body, description });
+
             toast.success(editMode ? 'Post updated successfully' : 'Post created successfully');
+            router.push(`/blog/${postData.id}`);
         } catch (error) {
             console.log("error", error);
             toast.error('An error occurred while creating the post');

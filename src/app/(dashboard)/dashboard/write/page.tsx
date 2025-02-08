@@ -33,13 +33,15 @@ const WritePage = async ({
         post = postData;
     }
 
-    const handleSubmit = async (payload: Pick<Post, 'body' | 'title' | 'description'>) => {
+    const handleSubmit = async (payload: Pick<Post, 'body' | 'title' | 'description'>): Promise<Post> => {
         "use server";
+        let response: Post;
         if (editMode && post) {
-            await updatePost(post.id, payload);
+            response = await updatePost(post.id, payload);
         } else {
-            await createPost(payload);
+            response = await createPost(payload);
         }
+        return response;
     }
 
     return (
