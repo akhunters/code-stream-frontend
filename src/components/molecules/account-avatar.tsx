@@ -35,20 +35,16 @@ export const AccountAvatar = ({
         });
     }
 
-    const navigateToMyBlogs = async () => {
-        const path = navigationItemPathMap.get("my-blogs");
+    const handleNavigation = async (to: NavigationItem) => {
+        const path = navigationItemPathMap.get(to);
 
         if (path) {
             router.push(path);
         }
     }
 
-    const navigateToWrite = async () => {
-        const path = navigationItemPathMap.get("write");
-
-        if (path) {
-            router.push(path);
-        }
+    const navigateToMyGithubInNewTab = () => {
+        window.open("https://github.com/akhunters", "_blank", "noopener noreferrer");
     }
 
     return (
@@ -68,19 +64,24 @@ export const AccountAvatar = ({
                 <DropdownMenuGroup>
                     <DropdownMenuItem
                         className="cursor-pointer"
-                        onClick={navigateToMyBlogs}
+                        onClick={() => handleNavigation("my-blogs")}
                     >
                         My Blogs
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         className="cursor-pointer"
-                        onClick={navigateToWrite}
+                        onClick={() => handleNavigation("write")}
                     >
                         Write
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">GitHub</DropdownMenuItem>
+                <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={navigateToMyGithubInNewTab}
+                >
+                    GitHub
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout} >
                     Log out
