@@ -4,6 +4,9 @@ import { auth } from "@/auth";
 import { Post } from "@/types/post.type";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import axios from "axios";
+import { getAxiosErrorMessage } from "@/lib/utils";
+import { CustomAxiosError } from "@/types/axios.type";
 
 const GET_ALL_POSTS_ENDPOINT = `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts`;
 const GET_POST_BY_ID_ENDPOINT = (id: string) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
@@ -35,15 +38,25 @@ interface GetAllPostQuery {
 export async function getAllPosts(queries: GetAllPostQuery = {}): Promise<Post[]> {
     const getAllPostsUrl = createUrl(GET_ALL_POSTS_ENDPOINT, { ...queries });
 
-    const response = await fetch(getAllPostsUrl);
-    const data = await response.json();
-    return data;
+    try {
+        const response = await axios<Post[]>(getAllPostsUrl);
+        return response.data;
+    } catch (e) {
+        const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
+        throw new Error(errorMessage);
+    }
 }
 
 export async function getPostById(id: string): Promise<Post> {
-    const response = await fetch(GET_POST_BY_ID_ENDPOINT(id));
-    const data = await response.json();
-    return data;
+    try {
+        const response = await axios.get(GET_POST_BY_ID_ENDPOINT(id));
+
+        const data = response.data;
+        return data;
+    } catch (e) {
+        const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
+        throw new Error(errorMessage);
+    }
 }
 
 export async function createPost(post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
@@ -55,22 +68,26 @@ export async function createPost(post: Pick<Post, 'title' | 'body' | 'descriptio
 
     const accessToken = session.accessToken;
 
-    const response = await fetch(CREATE_POST_ENDPOINT, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(post),
-    });
+    try {
+        const response = await axios.post<Post>(CREATE_POST_ENDPOINT, post, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
 
+        const data = response.data;
 
-    const data = await response.json();
+        // Redirect user to the newly created post
+        redirect(`/blog/${data.id}`);
+    } catch (e) {
+        const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
+        throw new Error(errorMessage);
+    }
 
-    redirect(`/blog/${data.id}`);
 }
 
-export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
+export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<void> {
     const session = await auth();
 
     if (!session) {
@@ -79,19 +96,22 @@ export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' |
 
     const accessToken = session.accessToken;
 
-    const response = await fetch(UPDATE_POST_ENDPOINT(id), {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(post),
-    });
+    try {
+        const response = await axios.patch<Post>(UPDATE_POST_ENDPOINT(id), post, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
 
-    const data = <Post>(await response.json());
+        const data = response.data;
 
-    revalidatePath(`/blog/${data.id}`, "page");
-    redirect(`/blog/${id}`);
+        // Redirect user to the updated post
+        redirect(`/blog/${data.id}`);
+    } catch (e) {
+        const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
+        throw new Error(errorMessage);
+    }
 }
 
 export async function deletePost(id: number): Promise<void> {
@@ -103,12 +123,17 @@ export async function deletePost(id: number): Promise<void> {
 
     const accessToken = session.accessToken;
 
-    await fetch(DELETE_POST_ENDPOINT(id), {
-        method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    });
+    try {
+        await axios.delete(DELETE_POST_ENDPOINT(id), {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
 
-    revalidatePath("/dashboard");
+        // Reset the cache and render the updated list of posts
+        revalidatePath("/dashboard");
+    } catch (e) {
+        const errorMessage = getAxiosErrorMessage(e as CustomAxiosError);
+        throw new Error(errorMessage);
+    }
 }
