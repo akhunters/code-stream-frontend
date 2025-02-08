@@ -77,7 +77,7 @@ const LoadingButton = ({
     return (
         <Button
             {...buttonProps}
-            disabled={loading}
+            disabled={loading || buttonProps.disabled}
             onClick={handleOnClick}
         >
             {loading && components.Loader}

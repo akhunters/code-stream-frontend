@@ -2,23 +2,32 @@
 
 import { useState } from "react";
 import RichTextEditor from "../molecules/rich-text-editor";
-import { Button } from "../ui/button";
 import { Post } from "@/types/post.type";
+import { toast } from "sonner";
+import LoadingButton from "../atoms/loading-button";
+import { Spinner } from "../atoms/spinner";
 
 export const BlogEditor = ({
+    editMode,
     post,
     onSubmit,
 }: {
     editMode?: boolean;
     post?: Post | null;
-    onSubmit: (data: Pick<Post, 'title' | 'body' | 'description'>) => void;
+    onSubmit: (data: Pick<Post, 'title' | 'body' | 'description'>) => Promise<void>;
 }) => {
     const [title, setTitle] = useState(post?.title || '');
     const [body, setBody] = useState(post?.body || '');
     const [description, setDescription] = useState(post?.description || '');
 
-    const handleSubmit = () => {
-        onSubmit({ title, body, description });
+    const handleSubmit = async () => {
+        try {
+            await onSubmit({ title, body, description });
+            toast.success(editMode ? 'Post updated successfully' : 'Post created successfully');
+        } catch (error) {
+            console.log("error", error);
+            toast.error('An error occurred while creating the post');
+        }
     }
 
     return (
@@ -44,7 +53,17 @@ export const BlogEditor = ({
                 />
                 <RichTextEditor content={body} setContent={setBody} />
                 <div className="flex justify-end w-full">
-                    <Button disabled={!title || !body} size={'lg'} onClick={handleSubmit}>Create</Button>
+                    <LoadingButton
+                        Components={{
+                            Loader: <Spinner className="text-white" />,
+                        }}
+                        disabled={!title || !body || !description}
+                        size={'lg'}
+                        className="flex items-center"
+                        onClick={handleSubmit}
+                    >
+                        Create
+                    </LoadingButton>
                 </div>
             </div>
         </div>
