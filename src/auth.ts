@@ -14,6 +14,7 @@ const {
     signIn,
     signOut,
 } = NextAuth({
+    trustHost: true,
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
