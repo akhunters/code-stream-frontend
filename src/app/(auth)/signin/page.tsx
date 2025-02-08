@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/atoms/icon";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function SignIn() {
+export default function SignInPage() {
   const session = useSession();
   const router = useRouter();
 
@@ -16,16 +16,34 @@ export default function SignIn() {
   }, [session]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold">Sign In</h1>
-      <>
-        <Button onClick={() => signIn('google')} className="mt-4 px-6 py-2 bg-red-500 text-white rounded">
-          Sign in with Google
-        </Button>
-        <Button onClick={() => signIn('facebook')} className="mt-4 px-6 py-2 bg-blue-500 text-white rounded">
-          Sign in with Facebook
-        </Button>
-      </>
+    <div className="flex flex-col gap-y-8 items-center justify-center min-h-screen bg-gray-100 px-6">
+      <h1 className="text-8xl">👨‍💻</h1>
+
+      <div>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Join the Coding Community!</h1>
+        <p className="text-gray-600 text-center max-w-md">
+          Sign in or register to start sharing your coding knowledge, writing blogs, and engaging with other developers! 🚀
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-y-6">
+        <button
+          onClick={() => signIn("google")}
+          className="px-6 py-3 bg-gray-600 text-sm font-semibold text-white rounded-lg shadow-md hover:bg-blue-700 transition flex items-center"
+        >
+          <span className="mr-2"><Icon name="google" width={24} height={24} /></span> Continue with Google
+        </button>
+        <button
+          onClick={() => signIn("facebook")}
+          className="px-6 py-3 bg-gray-200 text-sm font-semibold text-primary rounded-lg shadow-md hover:bg-gray-600 hover:text-white transition flex items-center"
+        >
+          <span className="mr-2"><Icon name="facebook" width={24} height={24} /></span> Continue with Facebook
+        </button>
+      </div>
+
+      <p className="mt-6 text-gray-600 text-sm">
+        New here? Just sign in and we'll create your account automatically! 💡
+      </p>
     </div>
   );
 }
