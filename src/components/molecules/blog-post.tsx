@@ -34,6 +34,8 @@ export const BlogPost = ({
                 <Image
                     src={thumbnail}
                     alt={title}
+                    width={400}
+                    height={400}
                     className="w-full h-[200px] object-cover rounded-sm"
                 />
                 <div className="flex justify-between items-start gap-x-8 ">

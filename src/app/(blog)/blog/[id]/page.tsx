@@ -29,8 +29,8 @@ const BlogPage = async ({
                 <Image
                     src={'/images/dummy-thumbnail.png'}
                     alt="Thumbnail"
-                    width={800}
-                    height={300}
+                    width={400}
+                    height={400}
                     className="w-full h-[300px] rounded-lg"
                 />
                 <PostBody body={post.body} />
