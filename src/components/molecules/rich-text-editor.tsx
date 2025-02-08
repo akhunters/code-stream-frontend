@@ -61,7 +61,7 @@ const RichTextEditor = ({
         content,
         editorProps: {
             attributes: {
-                class: 'prose focus:outline-none',
+                class: 'w-full focus:outline-none p-4 rounded-lg',
             },
         },
         onUpdate: ({ editor }) => {
@@ -74,7 +74,7 @@ const RichTextEditor = ({
     }
 
     return (
-        <div className="editor-container border rounded-lg p-4 w-full">
+        <div className="editor-container border rounded-lg p-4 w-full flex flex-col gap-4">
             <div className="toolbar flex gap-2 mb-2">
                 {[
                     { icon: <Bold size={18} />, action: () => editor.chain().focus().toggleBold().run(), isActive: editor?.isActive('bold') },
@@ -102,7 +102,7 @@ const RichTextEditor = ({
             <EditorContent
                 editor={editor}
                 style={{ minHeight: '200px' }}
-                className="prose border p-2 min-h-[200px] prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-gray-800 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-gray-700 prose-p:text-lg prose-p:text-gray-600 prose-pre:bg-gray-100 prose-pre:text-primary prose-pre:text-sm prose-pre:my-2 prose-pre:p-4 prose-pre:m-0 prose-pre:rounded-md"
+                className="prose flex max-w-full border p-2 min-h-[200px] prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-gray-800 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-gray-700 prose-p:text-lg prose-p:m-0 prose-h1:m-0 prose-h2:m-0 prose-blockquote:my-4 prose-p:text-gray-600 prose-pre:bg-gray-100 prose-pre:text-primary prose-pre:text-sm prose-pre:my-2 prose-pre:p-4 prose-pre:m-0 prose-pre:rounded-md"
             />
             <p className="text-right mt-2">Word Count: {editor?.storage.characterCount.words()}</p>
         </div>

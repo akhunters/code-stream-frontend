@@ -80,5 +80,5 @@ body {
 
 
 .prose {
-  max-width: max-content;
+  border-radius: 8px;
 }

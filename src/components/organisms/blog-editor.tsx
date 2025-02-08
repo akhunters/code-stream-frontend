@@ -18,15 +18,13 @@ export const BlogEditor = ({
     const [body, setBody] = useState(post?.body || '');
     const [description, setDescription] = useState(post?.description || '');
 
-    console.log(post, editMode);
-
     const handleSubmit = () => {
         onSubmit({ title, body, description });
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen min-w-screen">
-            <div className="flex flex-col items-center justify-center min-h-screen min-w-[60%] gap-y-4">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="flex flex-col items-center justify-center min-h-screen w-full min-w-[60%] gap-y-4">
                 <label className="text-xl w-full font-bold text-gray-800">Create a new blog</label>
                 <textarea
                     value={title}
