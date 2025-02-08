@@ -68,6 +68,7 @@ const RichTextEditor = ({
         onUpdate: ({ editor }) => {
             setContent(editor.getHTML());
         },
+        immediatelyRender: false,
     });
 
     if (!editor?.isInitialized) {
