@@ -12,7 +12,11 @@ export default async function Home() {
       <div className="w-full grid grid-cols-4 gap-6">
         {posts.map((post, idx) => (
           <div key={post.id}>
-            <BlogPost key={post.id} {...post} thumbnail="/images/dummy-thumbnail.png" />
+            <BlogPost
+              key={post.id}
+              {...post}
+              thumbnail="/images/dummy-thumbnail.png"
+            />
             {idx !== posts.length - 1 && <Separator />}
           </div>
         ))}

@@ -1,8 +1,11 @@
 import { Post } from "@/types/post.type";
 import dayjs from "dayjs";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { IconButton } from "../atoms/icon-link";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { deletePost } from "@/actions/posts.action";
+import LoadingButton from "../atoms/loading-button";
+import { Icon } from "../atoms/icon";
+import Link from "next/link";
 
 interface BlogPostProps extends Post {
     thumbnail: string;
@@ -21,7 +24,7 @@ export const BlogPost = ({
 
     const handleDelete = async () => {
         "use server";
-        // @todo Implement delete post functionality
+        await deletePost(id);
     };
 
     return (
@@ -48,27 +51,47 @@ export const BlogPost = ({
                         <p className="text-sm text-gray-600 italic">{dayjs(createdAt).format("MMM D, YYYY")}</p>
                     </div>
                 </div>
-                {editable && <div className="flex gap-x-2">
+                {editable && <div className="flex gap-x-2 items-center">
                     <Tooltip>
-                        <TooltipTrigger>
-                            <IconButton
-                                href={`/dashboard/write?id=${id}&edit=true`}
-                                icon="file-pen-line"
-                            />
-                        </TooltipTrigger>
-                        <TooltipContent>Edit</TooltipContent>
+                        <LoadingButton
+                            className="bg-transparent shadow-none p-0 h-8 w-8 text-primary hover:text-white"
+                        >
+                            <Link href={`/dashboard/write?id=${id}&edit=true`} className="flex items-center">
+                                <TooltipTrigger asChild>
+                                    <Icon
+                                        name="file-pen-line"
+                                        strokeWidth={1.5}
+                                    />
+                                </TooltipTrigger>
+                            </Link>
+                        </LoadingButton>
+                        <TooltipContent sideOffset={10}>Edit</TooltipContent>
                     </Tooltip>
-                    <Tooltip>
-                        <TooltipTrigger>
-                            <IconButton
-                                onClick={handleDelete}
-                                icon="trash-2"
-                            />
-                        </TooltipTrigger>
-                        <TooltipContent>Delete</TooltipContent>
+                    <Tooltip >
+                        <LoadingButton
+                            Components={{
+                                Error: null,
+                                Toaster: {
+                                    show: true,
+                                    successMessage: "Post deleted successfully",
+                                    errorMessage: "Error deleting post",
+                                }
+                            }}
+                            hideChildrenWhileLoading
+                            onClick={handleDelete}
+                            className="bg-transparent shadow-none p-0 h-8 w-8 text-primary hover:text-white"
+                        >
+                            <TooltipTrigger asChild>
+                                <Icon
+                                    strokeWidth={1.5}
+                                    name="trash-2"
+                                />
+                            </TooltipTrigger>
+                        </LoadingButton>
+                        <TooltipContent sideOffset={10}>Delete</TooltipContent>
                     </Tooltip>
                 </div>}
             </div>
-        </div>
+        </div >
     );
 }

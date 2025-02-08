@@ -1,6 +1,13 @@
-
-import { LucideProps, SquarePenIcon, Trash2, FilePenLine, Plus } from "lucide-react";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
+import {
+    LucideProps,
+    SquarePenIcon,
+    Trash2,
+    FilePenLine,
+    Plus,
+    Loader2,
+    CircleAlert,
+} from "lucide-react";
 import { GoogleIcon } from '@/assets/icons/google';
 import { FacebookIcon } from '@/assets/icons/facebook';
 
@@ -11,6 +18,8 @@ const ICON_KEYS = [
     "plus",
     "google",
     "facebook",
+    "loader-2",
+    "circle-alert",
 ] as const;
 
 export type IconType = typeof ICON_KEYS[number];
@@ -22,6 +31,8 @@ const IconMap = new Map<IconType, ForwardRefExoticComponent<Omit<LucideProps, "r
     ["plus", Plus],
     ["google", GoogleIcon],
     ["facebook", FacebookIcon],
+    ["loader-2", Loader2],
+    ["circle-alert", CircleAlert],
 ]);
 
 export interface IconProps extends Omit<LucideProps, "ref"> {

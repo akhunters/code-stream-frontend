@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/providers/auth-provider";
 import { NavBar } from "@/components/organisms/nav-bar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const sourceSerif4 = Source_Serif_4({
@@ -34,6 +35,7 @@ export default function RootLayout({
               {children}
             </div>
           </TooltipProvider>
+          <Toaster />
         </body>
       </AuthProvider>
     </html>

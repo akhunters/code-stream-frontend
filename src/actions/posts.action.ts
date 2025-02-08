@@ -2,11 +2,14 @@
 
 import { auth } from "@/auth";
 import { Post } from "@/types/post.type";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const GET_ALL_POSTS_ENDPOINT = `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts`;
 const GET_POST_BY_ID_ENDPOINT = (id: string) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
 const CREATE_POST_ENDPOINT = `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts`;
 const UPDATE_POST_ENDPOINT = (id: number) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
+const DELETE_POST_ENDPOINT = (id: number) => `${process.env.CODE_STREAM_BACKEND_BASE_URL}/posts/${id}`;
 
 const createQueryParams = <T extends Record<string, string | number>>(queries: T): URLSearchParams => {
     const queryParams = new URLSearchParams();
@@ -63,7 +66,8 @@ export async function createPost(post: Pick<Post, 'title' | 'body' | 'descriptio
 
 
     const data = await response.json();
-    return data;
+
+    redirect(`/blog/${data.id}`);
 }
 
 export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' | 'description'>): Promise<Post> {
@@ -84,6 +88,27 @@ export async function updatePost(id: number, post: Pick<Post, 'title' | 'body' |
         body: JSON.stringify(post),
     });
 
-    const data = await response.json();
-    return data;
+    const data = <Post>(await response.json());
+
+    revalidatePath(`/blog/${data.id}`, "page");
+    redirect(`/blog/${id}`);
+}
+
+export async function deletePost(id: number): Promise<void> {
+    const session = await auth();
+
+    if (!session) {
+        throw new Error("Unauthorized");
+    }
+
+    const accessToken = session.accessToken;
+
+    await fetch(DELETE_POST_ENDPOINT(id), {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+    revalidatePath("/dashboard");
 }
