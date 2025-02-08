@@ -6,6 +6,7 @@ import { deletePost } from "@/actions/posts.action";
 import LoadingButton from "../atoms/loading-button";
 import { Icon } from "../atoms/icon";
 import Link from "next/link";
+import Image from "next/image";
 
 interface BlogPostProps extends Post {
     thumbnail: string;
@@ -29,15 +30,19 @@ export const BlogPost = ({
 
     return (
         <div className="flex flex-col h-full gap-y-2 justify-between p-4 border border-gray-200 rounded-sm hover:border-gray-300">
-            <a href={`/blog/${id}`} className="flex flex-col gap-y-4 cursor-pointer ">
-                <img src={thumbnail} alt={title} className="w-full h-[200px] object-cover rounded-sm" />
+            <Link href={`/blog/${id}`} className="flex flex-col gap-y-4 cursor-pointer ">
+                <Image
+                    src={thumbnail}
+                    alt={title}
+                    className="w-full h-[200px] object-cover rounded-sm"
+                />
                 <div className="flex justify-between items-start gap-x-8 ">
                     <div className="flex flex-col gap-y-4">
                         <h1 className="text-xl font-bold">{title}</h1>
                         <p className="text-gray-700 text-sm">{description.slice(0, 60)}...</p>
                     </div>
                 </div>
-            </a>
+            </Link>
             <div className="flex items-center justify-between gap-x-2">
                 <div className="flex items-center gap-x-2">
                     <Avatar style={{ width: 32, height: 32 }}>

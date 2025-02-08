@@ -11,7 +11,7 @@ import {
 import { GoogleIcon } from '@/assets/icons/google';
 import { FacebookIcon } from '@/assets/icons/facebook';
 
-const ICON_KEYS = [
+export const ICON_KEYS = [
     "square-pen",
     "trash-2",
     "file-pen-line",

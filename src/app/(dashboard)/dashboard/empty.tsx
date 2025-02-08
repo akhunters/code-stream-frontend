@@ -10,7 +10,7 @@ export default function EmptyBlogs() {
             </div>
 
             <h2 className="text-2xl font-semibold text-gray-700">
-                Looks like your blog is still in <span className="text-blue-600">"init()" </span> mode! 🚀
+                Looks like your blog is still in <span className="text-blue-600">&quot;init()&quot; </span> mode! 🚀
             </h2>
             <p className="text-gray-500 max-w-lg">
                 Your coding wisdom is waiting to be shared! ✍️

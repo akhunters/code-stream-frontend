@@ -3,6 +3,7 @@ import { PostBody } from "@/components/atoms/post-body";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import dayjs from "dayjs";
+import Image from "next/image";
 
 interface BlogPageProps {
     params: Promise<{
@@ -25,7 +26,13 @@ const BlogPage = async ({
         <div className="flex items-center justify-center min-h-screen  py-28 w-full">
             <div className="flex flex-col items-center justify-center w-[80%] sm:w-[60%] gap-y-10">
                 <h1 className="text-4xl font-bold">{post.title}</h1>
-                <img src={'/images/dummy-thumbnail.png'} alt="Thumbnail" className="w-full h-[300px] rounded-lg" />
+                <Image
+                    src={'/images/dummy-thumbnail.png'}
+                    alt="Thumbnail"
+                    width={800}
+                    height={300}
+                    className="w-full h-[300px] rounded-lg"
+                />
                 <PostBody body={post.body} />
                 <Separator />
                 <div className="flex gap-x-4 w-full items-center">

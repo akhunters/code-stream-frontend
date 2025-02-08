@@ -6,7 +6,6 @@ import { Button } from "../ui/button";
 import { Post } from "@/types/post.type";
 
 export const BlogEditor = ({
-    editMode,
     post,
     onSubmit,
 }: {

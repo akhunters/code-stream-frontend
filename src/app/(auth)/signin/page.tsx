@@ -13,7 +13,7 @@ export default function SignInPage() {
     if (session.status === "authenticated") {
       router.push("/");
     }
-  }, [session]);
+  }, [session, router]);
 
   return (
     <div className="flex flex-col gap-y-8 items-center justify-center min-h-screen bg-gray-100 px-6">
@@ -42,7 +42,7 @@ export default function SignInPage() {
       </div>
 
       <p className="mt-6 text-gray-600 text-sm">
-        New here? Just sign in and we'll create your account automatically! 💡
+        New here? Just sign in and we&apos;ll create your account automatically! 💡
       </p>
     </div>
   );

@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 
-const NAVIGATION_ITEMS = [
+export const NAVIGATION_ITEMS = [
     "my-blogs",
     "write",
 ] as const;

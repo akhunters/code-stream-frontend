@@ -5,6 +5,7 @@ import { IconButton } from "../atoms/icon-link";
 import { auth } from "@/auth";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
 
 const AuthenticatedLinks = async () => {
     const session = await auth();
@@ -31,7 +32,7 @@ export const NavBar = async () => {
     return <div className="w-screen py-3 px-6 md:px-12 border-b-[1px] border-gray-100 fixed top-0 bg-white z-10">
         <div className="flex justify-between items-center">
             <div className="flex items-center">
-                <a href="/" className="text-2xl font-bold text-primary">Code Stream</a>
+                <Link href="/" className="text-2xl font-bold text-primary">Code Stream</Link>
             </div>
             <div className="flex items-center gap-x-5">
                 <IconButton href="/dashboard/write" icon="square-pen" label="Write" className="text-primary w-5 h-5" />

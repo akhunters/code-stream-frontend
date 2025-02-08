@@ -1,6 +1,6 @@
 import { User } from "./user.type";
 
-const AUTH_PROVIDERS = [
+export const AUTH_PROVIDERS = [
     'google',
     'facebook'
 ] as const;
