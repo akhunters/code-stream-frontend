@@ -1,6 +1,8 @@
 import { getAllPosts } from "@/actions/posts.action";
 import { BlogPost } from "@/components/molecules/blog-post";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const posts = await getAllPosts();
 
