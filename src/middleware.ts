@@ -3,11 +3,7 @@ import dayjs from "dayjs";
 import { auth } from "./auth";
 
 export async function middleware(req: NextRequest) {
-    console.log("[DEBUG] req.url", req.url);
-
     const session = await auth();
-
-    console.log("[DEBUG] token", session);
 
     if (!session?.accessToken) {
         const signinUrl = new URL("/signin", req.nextUrl.origin);
@@ -26,9 +22,6 @@ export async function middleware(req: NextRequest) {
      * 2. Update the session cookie with the token received from the above endpoint
      */
     const isTokenValidForNext5Mins = session?.accessTokenExpires && dayjs.unix(session.accessTokenExpires).diff(dayjs(), "minute") > 5;
-
-    console.log("[DEBUG] isTokenValidForNext5Mins", isTokenValidForNext5Mins);
-
     if (!isTokenValidForNext5Mins) {
         const signoutUrl = new URL("/signout", req.nextUrl.origin);
         return NextResponse.rewrite(signoutUrl.toString());

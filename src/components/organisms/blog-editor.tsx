@@ -25,13 +25,11 @@ export const BlogEditor = ({
 
     const handleSubmit = async () => {
         try {
-            console.log("title -submit called", title);
             const postData = await onSubmit({ title, body, description });
 
             toast.success(editMode ? 'Post updated successfully' : 'Post created successfully');
             router.push(`/blog/${postData.id}`);
         } catch (error) {
-            console.log("error", error);
             toast.error('An error occurred while creating the post');
         }
     }
