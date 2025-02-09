@@ -120,6 +120,27 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## 🧪 Unit Testing
+
+This project uses **Jest** and **React Testing Library** for unit testing.
+
+### **Running Tests**
+```sh
+npm run test
+```
+
+### **Test File Structure**
+Test files should follow the `.spec.ts` naming convention and be placed in the same directory as the component they test.
+
+Example:
+```
+src/components/molecules/
+ ├── blog-post.tsx  # Component file
+ ├── blog-post.spec.ts  # Test file
+```
+
+---
+
 ## 📖 Documentation & References
 
 - **Next.js App Router** → [Next.js Docs](https://nextjs.org/docs/app)
