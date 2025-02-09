@@ -50,6 +50,7 @@ const {
         },
         async session({ session, token }) {
             session.accessToken = token.accessToken;
+            session.accessTokenExpires = token.accessTokenExpires;
             session.user.userId = token.userId;
             return session;
         },
@@ -64,6 +65,7 @@ export { auth, handlers, signIn, signOut };
 declare module "next-auth" {
     interface Session {
         accessToken: string;
+        accessTokenExpires: number;
         user: AdapterUser & User & { userId: number };
     }
 }

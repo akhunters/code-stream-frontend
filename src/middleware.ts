@@ -1,15 +1,15 @@
-import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import dayjs from "dayjs";
+import { auth } from "./auth";
 
 export async function middleware(req: NextRequest) {
-    console.log("[DEBUG] req.url", req.url, process.env.AUTH_SECRET);
+    console.log("[DEBUG] req.url", req.url);
 
-    const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+    const session = await auth();
 
-    console.log("[DEBUG] token", token);
+    console.log("[DEBUG] token", session);
 
-    if (!token) {
+    if (!session?.accessToken) {
         const signinUrl = new URL("/signin", req.nextUrl.origin);
         return NextResponse.rewrite(signinUrl.toString());
     }
@@ -25,7 +25,7 @@ export async function middleware(req: NextRequest) {
      * 1. Call /api/auth/login endpoint with the new access token
      * 2. Update the session cookie with the token received from the above endpoint
      */
-    const isTokenValidForNext5Mins = token && dayjs.unix(token.accessTokenExpires).diff(dayjs(), "minute") > 5;
+    const isTokenValidForNext5Mins = session?.accessTokenExpires && dayjs.unix(session.accessTokenExpires).diff(dayjs(), "minute") > 5;
 
     console.log("[DEBUG] isTokenValidForNext5Mins", isTokenValidForNext5Mins);
 
