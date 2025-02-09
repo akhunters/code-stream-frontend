@@ -60,11 +60,15 @@ const LoadingButton = ({
 
                 await onClick(e);
 
-                onSuccess && onSuccess();
+                if (onSuccess) {
+                    onSuccess();
+                }
                 showToasterMessage(Components.Toaster?.successMessage, "success");
             } catch (error) {
                 setErrorState(true);
-                onError && onError(error as Error);
+                if (onError) {
+                    onError(error as Error);
+                }
                 showToasterMessage(Components.Toaster?.errorMessage, "error");
             } finally {
                 setLoading(false);

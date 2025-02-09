@@ -30,6 +30,7 @@ export const BlogEditor = ({
             toast.success(editMode ? 'Post updated successfully' : 'Post created successfully');
             router.push(`/blog/${postData.id}`);
         } catch (error) {
+            console.error(error);
             toast.error('An error occurred while creating the post');
         }
     }
