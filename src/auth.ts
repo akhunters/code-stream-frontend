@@ -39,10 +39,14 @@ const {
                     provider: account.provider as AuthProvider,
                 });
 
+                console.log('[DEBUG] backendAuthenticateResponse', backendAuthenticateResponse);
+
                 token.accessToken = backendAuthenticateResponse.accessToken;
                 token.accessTokenExpires = backendAuthenticateResponse.expiresAt;
                 token.userId = backendAuthenticateResponse.user.id;
             }
+
+            console.log('[DEBUG] token', token);
             return token;
         },
         async session({ session, token }) {
