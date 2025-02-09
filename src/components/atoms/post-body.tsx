@@ -11,6 +11,8 @@ export const PostBody = ({
 
     useEffect(() => {
         if (DOMPurify?.sanitize) {
+            // Sanitize the html body before rendering it
+            // This is to prevent XSS attacks
             setSanitizedBody(DOMPurify.sanitize(body));
         }
     }, [body]);
