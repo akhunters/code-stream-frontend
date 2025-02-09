@@ -16,7 +16,7 @@ export default function SignInPage() {
   }, [session, router]);
 
   return (
-    <div className="flex flex-col gap-y-8 items-center justify-center min-h-screen bg-gray-100 px-6">
+    <div className="flex flex-col gap-y-8 items-center justify-center min-h-screen bg-gray-100 px-6 text-center">
       <h1 className="text-8xl">👨‍💻</h1>
 
       <div>

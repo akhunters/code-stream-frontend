@@ -45,7 +45,7 @@ const WritePage = async ({
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex justify-center min-h-screen">
             <div className="w-[80%] sm:w-[60%]">
                 <BlogEditor editMode={editMode} post={post} onSubmit={handleSubmit} />
             </div>

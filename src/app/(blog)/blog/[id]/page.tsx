@@ -23,7 +23,7 @@ const BlogPage = async ({
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen  py-28 w-full">
+        <div className="flex items-start justify-center min-h-screen  py-28 w-full">
             <div className="flex flex-col items-center justify-center w-[80%] sm:w-[60%] gap-y-10">
                 <h1 className="text-4xl font-bold">{post.title}</h1>
                 <Image

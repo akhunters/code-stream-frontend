@@ -77,7 +77,7 @@ const RichTextEditor = ({
 
     return (
         <div className="editor-container border rounded-lg p-4 w-full flex flex-col gap-4">
-            <div className="toolbar flex gap-2 mb-2">
+            <div className="toolbar grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mb-2">
                 {[
                     { icon: <Bold size={18} />, action: () => editor.chain().focus().toggleBold().run(), isActive: editor?.isActive('bold') },
                     { icon: <Italic size={18} />, action: () => editor.chain().focus().toggleItalic().run(), isActive: editor?.isActive('italic') },
@@ -93,7 +93,7 @@ const RichTextEditor = ({
                         key={index}
                         onClick={action}
                         className={cn(
-                            "p-2 rounded-md transition-colors",
+                            "p-2 rounded-md transition-colors flex justify-center",
                             isActive ? "bg-neutral-700 text-white" : "bg-gray-200 hover:bg-gray-300"
                         )}
                     >

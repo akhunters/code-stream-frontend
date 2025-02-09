@@ -36,8 +36,8 @@ export const BlogEditor = ({
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center justify-center min-h-screen w-full min-w-[60%] gap-y-4">
+        <div className="flex flex-col justify-center min-h-screen py-24">
+            <div className="flex flex-col items-center min-h-screen w-full min-w-[60%] gap-y-4">
                 <label className="text-xl w-full font-bold text-gray-800">Create a new blog</label>
                 <textarea
                     value={title}

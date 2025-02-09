@@ -22,7 +22,7 @@ const DashboardPage = async () => {
     return (
         <div className="flex flex-col min-h-screen px-12 py-20 gap-y-8">
             <h3 className="text-4xl font-black text-gray-800 text-center">My Blogs</h3>
-            <div className="w-full grid grid-cols-4 gap-6">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {posts.map((post) => (
                     <div key={post.id} >
                         <BlogPost
