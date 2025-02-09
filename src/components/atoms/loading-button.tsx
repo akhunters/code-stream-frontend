@@ -46,28 +46,26 @@ const LoadingButton = ({
         ...Components,
     }
 
+    const showToasterMessage = (message: string = "", type: "success" | "error") => {
+        if (Components.Toaster?.show && Components.Toaster?.[`${type}Message`]) {
+            toast[type](message);
+        }
+    }
+
     const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
             try {
                 setLoading(true);
                 setErrorState(false);
-                await onClick(e);
-                if (onSuccess) {
-                    onSuccess();
-                }
 
-                if (Components.Toaster?.show && Components.Toaster?.successMessage) {
-                    toast.success(Components.Toaster.successMessage);
-                }
+                await onClick(e);
+
+                onSuccess && onSuccess();
+                showToasterMessage(Components.Toaster?.successMessage, "success");
             } catch (error) {
                 setErrorState(true);
-                if (onError) {
-                    onError(error as Error);
-                }
-
-                if (Components.Toaster?.show && Components.Toaster?.errorMessage) {
-                    toast.error(Components.Toaster.errorMessage);
-                }
+                onError && onError(error as Error);
+                showToasterMessage(Components.Toaster?.errorMessage, "error");
             } finally {
                 setLoading(false);
             }
