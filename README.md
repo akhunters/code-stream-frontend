@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Code Stream Blog
 
-## Getting Started
+A **modern blog application** built with **Next.js App Router**, showcasing my (Avinash's) full-stack development capabilities. This project demonstrates authentication, server actions, atomic design principles, and seamless user experience with a rich-text editor.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js (App Router), TypeScript, React Server Components (RSC)
+- **UI Framework:** ShadCN (Radix UI), Tailwind CSS
+- **Authentication:** NextAuth.js (Google & Facebook OAuth)
+- **State Management:** React Hooks & Context API
+- **Rich Text Editing:** TipTap Editor
+- **API Calls:** Axios & Server Actions
+- **Middleware:** Next.js Middleware for route protection
+- **Deployment:** Docker (Future plans for Terraform & AWS)
+
+---
+
+## 🔐 Authentication Flow
+
+1. Users can **sign in with Google or Facebook** via NextAuth.js.
+2. The OAuth token is sent to the backend for **JWT token generation**.
+3. The frontend uses this JWT for all **authenticated API requests**.
+
+---
+
+## 🏗️ Project Structure
+
+```
+src/
+ ├── components/  
+ │   ├── ui/           # Pre-built components from ShadCN  
+ │   ├── atoms/        # Smallest UI elements (buttons, icons)  
+ │   ├── molecules/    # Combinations of atoms (input fields, cards)  
+ │   ├── organisms/    # Complex UI elements (navbars, modals)  
+ │   ├── templates/    # Page-level layouts  
+ │   ├── skeletons/    # Skeleton loaders for UI elements  
+ │
+ ├── app/ # Only add routing pages here
+ │   ├── example/        # Example routing page
+ │   │   ├── page.tsx
+ │   ├── layout.tsx       # Root layout with global styles and authentication
+ │   ├── page.tsx         # Home page (displays blog posts)
+ │   ├── error.tsx        # Custom error page  
+ │   ├── global-error.tsx # Global error handling  
+ │   ├── not-found.tsx    # 404 Page  
+ │
+ ├── actions/
+ │   ├── example.action.ts
+ │
+ ├── providers/ # Define API context providers
+ │   ├── example.provider.tsx
+ ├── middleware.ts    # Protects private routes (can also add CSP and CORS policies)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌍 Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route                  | Type     | Description |
+|------------------------|---------|-------------|
+| `/`                    | Public  | Home page displaying blog posts |
+| `/signin`              | Public  | Sign-in page (Google/Facebook OAuth) |
+| `/signout`             | Public  | Logs user out and redirects to `/signin` |
+| `/dashboard`           | Private | User dashboard (view & manage posts) |
+| `/dashboard/write`     | Private | Post creation page (TipTap editor) |
+| `/blog/[id]`          | Public  | Single blog post view |
 
-## Learn More
+**🔒 Private routes** are protected using **Next.js Middleware**.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🖼️ Image Upload (Planned Feature)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- When a user **attaches a thumbnail image** in a blog post:
+  1. The frontend **requests a pre-signed URL** from the backend (AWS S3).
+  2. The image is **uploaded directly to S3** using a `PUT` request.
+  3. The image **URL is sent along with the post data** and stored in the database.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Setup & Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **1️⃣ Clone the Repository**
+```sh
+git clone https://github.com/akhunters/code-stream-frontend.git
+cd code-stream-frontend
+```
+
+### **2️⃣ Install Dependencies**
+```sh
+nvm use
+npm install
+```
+
+### **3️⃣ Configure Environment Variables**
+
+Create a `.env.local` file in the root directory:
+
+```sh
+AUTH_SECRET=your_secret
+AUTH_URL=http://localhost:3000
+AUTH_REDIRECT_PROXY_URL=http://localhost:3000/api/auth
+
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_client_secret
+
+AUTH_FACEBOOK_ID=your_facebook_client_id
+AUTH_FACEBOOK_SECRET=your_facebook_client_secret
+
+CODE_STREAM_BACKEND_BASE_URL=http://localhost:5000
+```
+
+### **4️⃣ Run the Development Server**
+```sh
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📖 Documentation & References
+
+- **Next.js App Router** → [Next.js Docs](https://nextjs.org/docs/app)
+- **NextAuth.js** → [NextAuth Docs](https://authjs.dev/getting-started)
+- **TipTap Editor** → [TipTap Docs](https://tiptap.dev/docs/editor/getting-started/install/nextjs)
+- **ShadCN (UI Components)** → [ShadCN Docs](https://ui.shadcn.com/docs)
+
+---
+
+## 🚀 Future Enhancements
+
+- ✅ **Post Image Upload** (AWS S3 + Pre-signed URLs)
+- ✅ **SEO Optimization** (Meta tags, Open Graph)
+- ✅ **Dark Mode Support**
+- ✅ **Improved API Error Handling**
+- ✅ **Responsive Design**
+
+---
+
+## 🤝 Contributing
+
+To contribute, please send an email to **avinashkmr886@gmail.com** to get contributor access as the repository is currently private. 🚀
+
