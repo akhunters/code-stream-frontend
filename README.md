@@ -1,6 +1,6 @@
 # 🚀 Code Stream Blog
 
-A **modern blog application** built with **Next.js App Router**, showcasing my (Avinash's) full-stack development capabilities. This project demonstrates authentication, server actions, atomic design principles, and seamless user experience with a rich-text editor.
+A **modern blog application** built with **Next.js App Router**. This project demonstrates authentication, server actions, atomic design principles, and seamless user experience with a rich-text editor.
 
 ---
 
@@ -159,8 +159,4 @@ src/components/molecules/
 - ✅ **Responsive Design**
 
 ---
-
-## 🤝 Contributing
-
-To contribute, please send an email to **avinashkmr886@gmail.com** to get contributor access as the repository is currently private. 🚀
 
