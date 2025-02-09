@@ -47,6 +47,10 @@ export const AccountAvatar = ({
         window.open("https://github.com/akhunters", "_blank", "noopener noreferrer");
     }
 
+    const navigateToApiDocsInNewTab = () => {
+        window.open(`${process.env.NEXT_PUBLIC_CODE_STREAM_BACKEND_BASE_URL}/docs`, "_blank", "noopener noreferrer");
+    }
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -76,12 +80,20 @@ export const AccountAvatar = ({
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    className="cursor-pointer"
-                    onClick={navigateToMyGithubInNewTab}
-                >
-                    GitHub
-                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                    <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={navigateToMyGithubInNewTab}
+                    >
+                        GitHub
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={navigateToApiDocsInNewTab}
+                    >
+                        API Docs
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout} >
                     Log out
