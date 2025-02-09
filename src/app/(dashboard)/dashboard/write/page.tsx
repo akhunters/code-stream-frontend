@@ -22,6 +22,8 @@ const WritePage = async ({
     let post: Post | null = null;
     let editMode = false;
 
+    console.log("[DEBUG] urlSearchParams", urlSearchParams);
+
     if (urlSearchParams && urlSearchParams.edit === 'true') {
         const postData = await getPostById(urlSearchParams.id);
 

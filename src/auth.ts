@@ -46,7 +46,6 @@ const {
                 token.userId = backendAuthenticateResponse.user.id;
             }
 
-            console.log('[DEBUG] token', token);
             return token;
         },
         async session({ session, token }) {
