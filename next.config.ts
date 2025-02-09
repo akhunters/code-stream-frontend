@@ -6,6 +6,7 @@ const imagesRemoteHostnames = [
 ];
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: imagesRemoteHostnames.map(hostname => ({
       hostname,
