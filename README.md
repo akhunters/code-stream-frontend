@@ -2,6 +2,8 @@
 
 A **modern blog application** built with **Next.js App Router**. This project demonstrates authentication, server actions, atomic design principles, and seamless user experience with a rich-text editor.
 
+Checkout the app at [Code Stream Blog](https://code-stream.avinash-kumar.com/).
+
 ---
 
 ## 🛠️ Tech Stack
